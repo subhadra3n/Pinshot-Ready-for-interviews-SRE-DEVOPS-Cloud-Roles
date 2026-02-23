@@ -1,0 +1,49 @@
+In our  project, we use Terraform to provision  AWS infrastructure.
+
+
+2. we manage AWS services like VPCs, EC2 instances,ECS,eks NAT gateways, subnets, route tables, and security groups. 
+To ensure our Terraform codebase remains clean and reusable, we follow a two-layer structure: root configuration and custom modules.
+
+At the root level, we have all the environment setup such as 
+
+provider.tf defines the AWS provider ,region and credentials.
+
+main.tf is to call & manage our custom modules like vpc, ec2, rds, etc.
+
+variables.tf & terraform.tfvars to define & assigns values specific to the environment — like CIDR ranges, tags, or instance types.
+
+And finally, output.tf captures important outputs such as public IPs, VPC IDs, and more.
+
+3."For reusability  we’ve built custom modules for components like VPC, EC2, RDS, and S3 buckets, 
+
+4.Each module has its own vpc.tf, main.tf variables.tf, and output.tf.
+ 5.It can be reused across environments  simply by passing in different variables.
+
+6.To manage multiple environments like dev, staging, and prod, we leverage Terraform Workspaces. 
+7.Each workspace keeps a separate state file, so we can deploy the same infrastructure in different environments with isolated configurations. 
+Switching between them by using command, terraform workspace select dev or prod.
+
+8.For state management, we use AWS S3 bucket to  store our Terraform state files,we also use DynamoDB for state locking
+To avoid conflicts when multiple team members run Terraform at the same time.
+
+
+9.The S3 bucket is configured with versioning enabled, so we can roll back to a previous state if something goes wrong.
+We also enforce encryption using server-side encryption (SSE-S3 or SSE-KMS) and bucket policies to restrict access.
+
+
+10."When it comes to managing secrets,like database passwords or API keys are never hardcoded. 
+Instead, we store them in  AWS Secrets Manager, inject them via environment variables, 
+and always mark them as sensitive in Terraform so they’re not exposed in the CLI or logs.".
+
+"We typically follow this Terraform workflow:
+
+11.terraform init to initialize the working directory and download the necessary provider plugins
+
+terraform validate to catch syntax or configuration errors early
+
+terraform plan to preview the execution plan and understand what changes will be made
+
+terraform apply to provision or update the infrastructure as defined"
+
+
+12.Overall, this setup makes our Terraform deployments more reliable, secure, and collaborative.”
