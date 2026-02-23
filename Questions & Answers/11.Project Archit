@@ -1,0 +1,8 @@
+1.When a user accesses the application through a browser,
+the request first goes through DNS resolution, 
+2. Route 53 resolves the domain name to the Application Load Balancer (ALB) based on DNS Configured host zone records
+3.The Application Load Balancer (ALB) is placed in public subnets and configured with an SSL certificate to terminate HTTPS traffic.
+4.Based on host-based and path-based rules, the ALB forwards the request to the Kubernetes Ingress controller,The Ingress controller then routes the request
+to the appropriate Service according to the Ingress rules.
+5.The Service load-balances traffic across healthy Pods. 
+The Pod running the application processes the request, communicates with the database and other microservices, builds the response, and sends it back to the user.
