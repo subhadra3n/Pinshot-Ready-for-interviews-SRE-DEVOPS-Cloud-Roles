@@ -1,0 +1,99 @@
+1. In our project, we use Prometheus to collect metrics and Grafana to visualize application and infrastructure health.
+
+2. Prometheus gathers metrics from exporters such as Node Exporter, Blackbox Exporter, and kube-state-metrics, 
+which are configured as scrape targets in the prometheus.yml file, either as static targets or via Kubernetes service discovery.
+
+3. These exporters expose system metrics, Kubernetes metrics, and availability metrics,
+Prometheus stores this data with the time it was collected as time-series data.
+
+4. I have created Grafana dashboards by configuring Prometheus as a data source, writing PromQL queries,
+and also importing existing dashboards using Grafana dashboard IDs.
+
+5. We define Prometheus rules in separate YAML files, including recording rules to pre-compute frequently used metrics for improved query performance.
+
+6. We also define alerting rules to continuously evaluate conditions such as sustained CPU or memory pressure; 
+these rule files are referenced from prometheus.yml.
+
+7. When an alert fires, Prometheus sends it to Alertmanager along with labels like pod, namespace, and severity.
+
+8. Alertmanager handles grouping, deduplication, and routing  notifications to slack or pager duty.
+
+9. Alertmanager integrates with Slack via webhooks, Email via SMTP, and PagerDuty using API integration keys.
+
+This setup helps us detect issues early, reduce downtime, and respond to incidents faster across environments.
+dashboard queries:
+
+1.Node / Infrastructure Metrics
+CPU Usage %
+100 - (avg by (instance) (
+rate(node_cpu_seconds_total{mode="idle"}[5m])
+) * 100)
+___________________________--
+2.Memory Usage %
+(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes)
+/ node_memory_MemTotal_bytes * 100
+____________________________________________
+3.Disk Usage %
+100 - (
+node_filesystem_avail_bytes{mountpoint="/"} 
+/ node_filesystem_size_bytes{mountpoint="/"} * 100
+)
+______________________________________________
+4.Network Traffic (RX/TX)
+rate(node_network_receive_bytes_total[5m])
+rate(node_network_transmit_bytes_total[5m])
+_______________________________________
+5.Kubernetes Metrics
+Pod Status
+kube_pod_status_phase
+
+6.Pod Restarts
+increase(kube_pod_container_status_restarts_total[5m])
+
+7.Running Pods
+count(kube_pod_status_phase{phase="Running"})
+
+8.Pending Pods
+count(kube_pod_status_phase{phase="Pending"})
+
+9.Pod CPU Usage
+sum by (pod) (
+rate(container_cpu_usage_seconds_total[5m])
+)
+
+10.Pod Memory Usage
+sum by (pod) (
+container_memory_working_set_bytes
+)
+
+11.Node Not Ready
+kube_node_status_condition{condition="Ready",status="false"}
+
+🚀 Application Metrics
+12.Request Rate
+sum(rate(http_requests_total[5m]))
+
+13.Error Rate
+sum(rate(http_requests_total{status=~"5.."}[5m]))
+
+14.Latency (95th percentile)
+histogram_quantile(0.95,
+sum(rate(http_request_duration_seconds_bucket[5m])) by (le)
+)
+
+☁ AWS Metrics (CloudWatch Exporter)
+15.EC2 CPU Utilization
+aws_ec2_cpuutilization_average
+
+16.ALB Request Count
+aws_applicationelb_request_count_sum
+
+17.RDS CPU
+aws_rds_cpuutilization_average
+
+18.⚠ Alert Useful Queries
+High CPU
+100 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100 > 80
+
+19.Pod CrashLoop
+increase(kube_pod_container_status_restarts_total[5m]) > 3
