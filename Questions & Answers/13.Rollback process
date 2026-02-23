@@ -1,0 +1,7 @@
+1.“When a deployment fails, first we detect the issue using monitoring alerts. 
+2.We pause further rollouts to limit impact, analyze logs to confirm the root cause, and
+3.immediately roll back to the last stable version using Kubectl rollout undo deployment<dep-name> or CI/CD redeployment. 
+4.After rollback,we verify system stability by running smoke tests 
+& monitoring the metrics.
+5.we conduct a detailed Root Cause Analysis (RCA), document the incident, 
+and implement preventive measures such as improved testing, monitoring, or deployment strategies to avoid similar failures in the future.
