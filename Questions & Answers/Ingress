@@ -1,0 +1,14 @@
+why ingress is use ---we can achieve through LB also?
+
+1.“A  LoadBalancer exposes a single service externally at Layer-4, which works well for simple use cases.
+2.However, in a production environment with multiple microservices, this approach is not ideal because it requires a
+separate cloud LoadBalancer for each service, making the setup more expensive and difficult to manage.
+3.Ingress solves this by providing Layer-7 traffic management.
+Ingress  is a k8s api-resource that defines routing rules such as host-based and path-based routing.
+4.When using the AWS ALB Ingress Controller (AWS Load Balancer Controller),
+the controller continuously watches Ingress resources and automatically provisions and manages an Application Load Balancer in AWS.
+5.Based on the Ingress rules and annotations,the controller configures ALB listeners, listener rules, target groups, and health checks, 
+and routes traffic to multiple backend Kubernetes services through a single ALB.
+This enables centralized TLS termination at the ALB, clean HTTP routing, improved scalability, and significant cost optimization.
+
+_________________________________________________________
