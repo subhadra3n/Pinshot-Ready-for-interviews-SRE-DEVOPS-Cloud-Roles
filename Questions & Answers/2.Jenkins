@@ -1,0 +1,31 @@
+In my current project, we use Jenkins to build a multi-stage CI/CD pipeline. It begins with a Git checkout stage to pull the latest source code.
+
+2.Next, we have a Compile stage that validates the code and checks for any syntax issues. After that, we run unit tests using tools like JUnit to ensure our code behaves as expected.
+
+3.In the Code Quality stage, we integrate SonarQube to assess code quality and measure code coverage. We also use OWASP Dependency Check to identify known vulnerabilities in third-party libraries.
+
+4.In the Build stage, we use Maven to package the application from a pom.xml file into a .jar or .war.  These artifacts are then uploaded to a
+Nexus Repository for centralized storage.
+
+For example, "If we have multiple versions of our application, Nexus can store and manage them efficiently, 
+which simplifies version control and dependency management. 
+
+5.Following this, we use Docker to build a container image of the application. We scan the image using Trivy to ensure it's free from vulnerabilities.
+
+6.Once the image passes security checks, it’s pushed to Amazon ECR, and After that we run a kube-audit security  stage to scan the
+Kubernetes cluster for security and compliance issues, After successful validation, the application is deployed to the Kubernetes cluster
+using Argo CD, where Argo CD continuously syncs the desired state from Git, and the deployment is verified through health and sync status checks.
+
+
+ We are supposed to receive mail notifications if the pipeline succeeds or fails. After deployment, we monitor the application.
+
+7.For monitoring, we rely on Prometheus to collect metrics and Grafana to visualize application and infrastructure health.
+
+8.This pipeline ensures that every change goes through quality checks, security scans, and automated deployment, which significantly reduces manual effort and deployment risks.”
+Webhooks are enabled in GitHub and Jenkins so that any code changes automatically trigger the pipeline build process.
+
+#########################################################
+9.for the Pipeline Reusability: We use Jenkins Shared Libraries for common tasks like Docker image build/push, Kubernetes deployment, and notifications. 
+This keeps Jenkinsfiles clean and promotes consistency across teams.
+
+10. We also  use parameterized pipelines to support deployments to multiple environments like Dev, QA, and Prod."
