@@ -1,0 +1,33 @@
+Zero down time deployment strategies:
+i.Rolling updates
+“Zero-downtime deployment means releasing updates without affecting users. We follow deployment strategies like blue-green, canary, or rolling updates.
+For example, in Kubernetes, I use rolling updates to gradually replace pods, so most of the service remains live while the new version rolls out.
+
+Next, I manage traffic carefully. Load balancers and service meshes route requests only to healthy instances, ensuring users don’t face errors if
+something goes wrong. I continuously monitor the system using tools like Prometheus and Grafana to track latency, errors, and performance.
+
+In CI/CD pipelines, we handle builds, deployments, health checks, and automated rollbacks, so if an issue arises, we can revert to the stable
+
+version quickly without manual intervention.
+___________________-
+ii.Canary:
+Canary Deployment releases a new version of an application to a small subset of users or pods first.
+The rest of the users continue using the stable old version while we monitor key metrics like  error rate, latency, 
+and CPU usage are closely monitored before increasing traffic to the new version..
+If no issues are detected, the new version is gradually rolled out to more users in phases.
+This strategy reduces deployment risk, ensures smoother releases, and allows early detection of production issues.
+
+iii.Blue green Deployment:
+Blue-Green Deployment is a strategy where two identical environments—Blue and Green—run simultaneously.
+One environment serves production traffic while the other remains idle.
+When the new version is deployed and tested in the idle environment, traffic is switched from the active environment to the idle one.
+This approach ensures minimal downtime, quick rollback, and safer production releases.
+___________________________________
+summary:
+In production, Canary Deployment gradually releases a new version to a small subset of users, allowing early detection of issues with
+minimal risk.
+Blue-Green Deployment maintains two identical environments and switches traffic instantly to the new version, providing near-zero downtime and
+very low risk.
+Rolling Update replaces old instances or pods in batches, ensuring continuous availability but with moderate risk if any batch fails.
+Overall, Blue-Green is most effective for critical systems requiring zero downtime, Canary is ideal for testing features safely, and 
+Rolling Updates work well for standard routine updates.
