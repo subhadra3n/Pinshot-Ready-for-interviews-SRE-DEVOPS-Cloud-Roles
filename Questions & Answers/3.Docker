@@ -1,0 +1,27 @@
+Docker:
+1.“In our project, we use Docker to containerize applications along with their dependencies, making them lightweight, portable, and environment-independent.
+
+2.We write a Dockerfile to define the build steps. For optimization, we typically use Alpine Linux & Distroless as the base image and 
+apply multistage build to reduce the final image size and eliminates unnecessary dependencies and speeds up deployment.
+3.for example--------in the multi stage builds 
+The first stage handles compiling or building the application (e.g., running npm run build)
+The second stage copies only the built artifacts into a fresh lightweight image, This way, the final image is small and secure.
+
+4.When we run the docker build command, docker follows the instructions inthe Dockerfile to build a container image step by step. 
+5.Each instruction creates a new layer in the image, and Docker caches these layers to optimize build process.
+6. --docker volumes are used for persistent data storage and configuration sharing between containers and the host system.
+--Volumes help decouple application data from container lifecycle.
+--They are especially useful for databases and storing logs or user uploads.
+
+Example: docker run -v mydata:/var/lib/data myapp
+7.Docker Networks---To enable communication between containers (e.g., app and database), we define custom Docker networks.
+We use bridge networks for local development and overlay networks in Docker Swarm.
+Naming services and using Docker’s internal DNS improves scalability and maintainability.
+
+Example:docker network create mynetwork
+docker run --network=mynetwork --name db postgres
+docker run --network=mynetwork --name app myapp
+
+8.We also follow best practices like .dockerignore to exclude unnecessary files 
+and use Trivy to scan Docker images for vulnerabilities before pushing them to Amazon ECR.”
+Overall, Docker plays a key role in our CI/CD pipeline, allowing us to build once and deploy anywhere reliably.”
