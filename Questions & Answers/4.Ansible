@@ -1,0 +1,126 @@
+1."In our project, we use Ansible for configuration management and automation tasks like installing packages, managing users, updating configurations, 
+and restarting services across multiple servers at the same time.
+
+2. Ansible is agentless — so we don’t need to install any extra software on the target machines. It only requires SSH access and Python, 
+which makes it lightweight and easy to use.
+3.We always ensure that our playbooks are idempotent,so  they can be executed multiple times without causing unwanted changes
+if the system is already in the desired state.
+
+4.For security, we use Ansible valut to store sensitive data and encrypt them during deployments
+5.Regarding inventory management, we use both static and dynamic inventories:
+
+Static Inventory for lower environments (like dev/test), where we manually maintain list of  ips or hostnames  in a file like hosts.ini 
+
+Dynamic Inventory in production, where we integrate with AWS inventory plugins or inventory scripts to automatically fetch EC2 instances 
+
+dynamically using tags and instance states.
+
+ Ansible plays very important role for configuration management,it  helped us to reduce manual effort, speeds up deployments, and 
+improve consistency across environments
+_______________________
+I have 100 worker nodes whenever i run the playbook. it should run on first 20 servers then next 20, next 20, next 20 next 20. ok, How do you configure this?
+
+The simplest way is to use the serial keyword in your playbook.
+---
+- name: Run tasks on worker nodes in batches
+  hosts: worker_nodes
+  serial: 20     # run on 20 servers at a time
+  gather_facts: false
+
+  tasks:
+    - name: Example task
+      shell: echo "Running on {{ inventory_hostname }}"
+_____________
+strategy: free allows hosts in the next batch to start as soon as slots are free, instead of waiting for all hosts in the previous batch.
+- name: Rolling update example
+  hosts: worker_nodes
+  serial: 20
+  strategy: free
+  tasks:
+    - name: Run command
+      shell: echo "Running on {{ inventory_hostname }}"
+_______________
+I have 100 servers, I want to fetch IP & OS family of those servers, by using
+Ansible playbook, How Can you do that?
+gather facts can be enabled
+ gather_facts: yes
+______________
+Do you know how to execute specific task in Ansible?
+You can tag tasks in your playbook and then execute only tasks with a specific tag.
+____
+---
+- name: Example playbook
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+      tags: install
+
+    - name: Start nginx service
+      service:
+        name: nginx
+        state: started
+      tags: start
+
+    - name: Print hostname
+      debug:
+        msg: "Hostname: {{ inventory_hostname }}"
+      tags: info
+_______________
+when you run the Ansible Playbook in the end we will get one thing, what is that?
+When you run an Ansible playbook:
+
+ansible-playbook playbook.yml -i inventory.ini
+
+
+The output you get is:
+
+Task Execution Status for Each Host
+
+For every task on every host, Ansible shows whether it was:
+
+ok → Task already in desired state
+
+changed → Task made changes
+
+failed → Task failed
+
+skipped → Task skipped (e.g., conditional not met)
+
+unreachable → Host could not be contacted
+
+Summary at the End
+After execution, Ansible provides a summary table like this:
+
+PLAY RECAP *********************************************************************
+server1                   : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+server2                   : ok=5    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+
+Debug/Output Messages (Optional)
+
+If you used the debug module, you’ll see specific messages, variables, or facts.
+
+Example: printing IP addresses or hostnames.
+
+Artifacts / Changes on Hosts
+
+The actual result of the playbook is the state change on the managed nodes:
+
+Software installed
+
+Services started
+
+Configurations applied
+
+Files copied
+
+This is what makes Ansible idempotent — it ensures the hosts match the desired state defined in your playbook.
+
+2️⃣ In short — one thing you get
+
+A complete report of task execution and the final state of all target hosts, showing which tasks succeeded, which changed the system, and which failed, plus any optional debug output.
