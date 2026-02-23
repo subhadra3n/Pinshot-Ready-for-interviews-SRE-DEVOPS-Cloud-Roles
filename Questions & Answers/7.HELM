@@ -1,0 +1,15 @@
+Helm:
+Helm is the package manager for Kubernetes that simplifies application deployment and management. 
+Instead of manually applying multiple YAML files, Helm  bundles all manifest files, templates,configuration values 
+ into a
+single package called a Helm Chart
+
+A Helm Chart has a standard structure with Chart.yaml for metadata, values.yaml for configurations, templates/ for Kubernetes manifests 
+with placeholders, and an optional charts/ folder for dependencies. This structure makes manifests reusable and parameterized,
+
+so we only update values.yaml instead of editing every file.we can deploy the same application across Dev, Staging, and Production without rewriting code.
+
+Helm provides Release Management. Every time you install or upgrade a chart, Helm creates a new revision. 
+It tracks changes in a history log, allowing you to perform instant rollbacks to a previous stable state if something goes wrong.
+
+So overall, Helm reduces complexity, enforces consistency, improves scalability, and makes Kubernetes deployments production-ready.”
