@@ -1,0 +1,56 @@
+1.Introduction/self intro:
+
+.Thank you for giving me this oppurtunity,
+2. my name is Subhadra, and I'm from Hyderabad. I’m currently working as a DevOps Engineer at Agile Ideas Pvt. Ltd., 
+with overall  3.6 years of experience in the DevOps domain.
+
+3.Throughout, I’ve gained extensive knoweledge in streamlining software development and deployment processes, 
+along with automating infrastructure.
+
+
+4.My technical skill set includes creating and maintaining CI/CD pipelines using Jenkins,"Multi-cloud infrastructure management on AWS, Azure,
+and GCP with Terraform."
+I automate software installation configuration management using Ansible, we acheive container orchestration,Auto scaling,self healing and 
+lb with Kubernetes,monitor infrastructure with Prometheus and Grafana,and 
+shell scripting for automating repetitive tasks.
+
+
+6.Currently, I’m working on an eCommerce project that follows a microservices architect with 55+ micro services,we manage cart & notifications micro services.
+comming to My roles & responsibilities (include managing and deploying Java-based applications with a fully automated CI/CD pipeline using Jenkins.)
+
+
+o   I am responsible for monitoring infrastructure health by logging into the system and performing regular health checks.
+o	We use Prometheus to collect the metrics and Grafana to visuallize the application & infra health, integrated with Node Exporter and Blackbox, to track system metrics and application health.
+o	If any alerts or incidents occur, I analyze them and take appropriate action.
+o	& my next task is to -----
+2.	and we also 
+o	manage and maintain CI/CD pipelines, ensuring smooth deployment and delivery processes.
+o	I review and modify pipelines as per project requirements, ensuring reliability and performance.
+o	And For new projects, we write a declarative pipeline script to define and create the required stages."
+3.	multi-Cloud Infrastructure Management (AWS,Azure,GCP):
+          in this AWS, we 
+          
+           i    set up infrastructure for various envs such as dev, testing, staging, and production environments."
+          ii.Based on project requirements, we automate the installation and configuration of pre-required softwares using Ansible. In d/f environments
+         
+& we also work on automation 
+4.	
+As part of automation initiatives, I have created scripts for tasks such as log rotation, cleaning  old backups, process monitoring, and cron job scheduling. 
+Python’s versatility allows me to write more complex automation scripts for cloud resource management, API interactions, and integration with infrastructure tools.
+○ Schedule automated jobs using cron for maintenance activities and monitoring disk usage with 
+automated alerts,significantly reducing manual effort.
+
+
+5.In k8s, we creating and managing existing clusters as per project req to ensure high availability and stability. 
+I monitor pod health, troubleshoot failures, and provide a stable environment for users and clients.
+I also handle microservices deployments using YAML manifests and Helm charts, with ConfigMaps and Secrets for configuration, and use ClusterIP,
+LoadBalancer, and Ingress for service exposure. Autoscaling and rolling updates are configured to ensure performance and zero downtime.
+
+6.Additionally, I perform Root Cause Analysis (RCA) by documenting incident summaries, root causes, impact analysis,
+corrective actions, and preventive measures.
+
+I also continuously update runbooks with troubleshooting steps, alert handling procedures, rollback processes,
+and lessons learned from incidents.
+
+
+Thats all bout my profile thank you
