@@ -1,0 +1,15 @@
+what is manifest file in k8s?
+A Kubernetes manifest file is a text file written in YAML format that contains a set of instructions to define and manage Kubernetes resources like Pods, 
+Deployments, Services, and ConfigMaps. 
+It declares the desired state of these resources in the cluster, such as what containers to run, how many replicas to maintain, and how to configure networking.
+Kubernetes reads this file and automatically creates or updates the cluster to match the specified state. 
+it acts like a blueprint for Kubernetes to understand what needs to be deployed and managed, enabling declarative and repeatable infrastructure management.
+____________________________________________________
+what is docker file?
+A Dockerfile is a text file that contains a set of instructions to build a Docker image. It acts like a blueprint specifying the base image, application code,
+dependencies, environment variables, and commands to run inside the container. When you run the docker build command, Docker reads the Dockerfile line by line,
+executing each instruction to assemble an image layer by layer.
+This process ensures consistent, repeatable, and portable container images that run the same way across different environments.
+What is Jenkins file?
+A Jenkinsfile is a text file that contains a series of stages and steps to define a Jenkins pipeline. It automates the build, test, and
+deployment processes consistently across different environments to effectively maintain and streamline the CI/CD process.
