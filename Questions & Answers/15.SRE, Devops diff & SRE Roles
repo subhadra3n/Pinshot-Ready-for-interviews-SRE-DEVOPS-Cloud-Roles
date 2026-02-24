@@ -5,7 +5,7 @@ DevOps engineers focus on automating infrastructure and building CI/CD pipelines
 
 SRE:
 “SRE engineers focus on system reliability, security, monitoring, incident management, and
-enforcing SLOs and SLAs to maintain production stability and performance.”
+enforcing SLOs and SLAs to provide stable env for both clients & users.
 ________________________________________________
 SRE Roles:
 
