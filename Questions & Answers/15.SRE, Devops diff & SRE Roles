@@ -1,0 +1,49 @@
+SRE & Devopos 
+
+DevOps engineers focus on automating infrastructure and building CI/CD pipelines to deliver features faster and more reliably.
+
+
+SRE:
+“SRE engineers focus on system reliability, security, monitoring, incident management, and
+enforcing SLOs and SLAs to maintain production stability and performance.”
+________________________________________________
+SRE Roles:
+
+n production, we perform regular health checks using monitoring tools llike prometheus & Grafana
+Daily, I monitor Grafana dashboards to verify:
+
+Node health
+Pod status
+CPU, memory, and disk utilization
+Service availability
+Storage performance
+
+I receive alerts from PagerDuty and Slack and prioritize incidents based on severity and business impact.
+
+When an incident occurs,alerts typically include details such as pod name, namespace, severity level, and error information.
+I securely access the Kubernetes cluster through a bastion host and troubleshoot issues using commands
+like kubectl describe and kubectl logs, and then take appropriate corrective actions.” 
+for example:
+if a pod is in a CrashLoopBackOff or OOMKilled state, I analyze the pod events and logs to identify the root cause.
+Based on the findings,
+
+I update resource requests and limits,to allocate sufficient memory and prevent future crashes.
+Optimize HPA thresholds  based on CPU/memory utilization patterns. or 
+Scale pods horizontally or nodes vertically based on workload demand
+
+During deployments, I closely monitor canary releases. If I notice 5xx errors or latency spikes, I immediately rollback and collaborate 
+with developers to fix the issue.
+
+
+
+Weekly and monthly, I review memory utilization, backup status,security patch compliance,and perform DR drills to 
+ensure high availability and business continuity.
+
+
+After every incident, I perform Root Cause Analysis (RCA) by documenting incident summary, root cause, 
+impact analysis, corrective actions, and preventive measures.
+ I continuously update runbooks with troubleshooting steps, alert handling procedures, rollback processes, and 
+lessons learned from incidents.
+
+ As an SRE we focus on  minimizing MTTR(mean time toi recovery), preventing recurring incidents, 
+and improving system reliability & security through proactive monitoring and automation.”
